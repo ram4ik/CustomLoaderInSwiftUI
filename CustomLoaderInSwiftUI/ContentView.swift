@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showLoader = false
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack {
+            Button(action: {
+                showLoader.toggle()
+            }, label: {
+                Text("Show Loader?")
+            })
+            
+            if showLoader {
+                LoaderView()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .background(showLoader ? Color.black.opacity(0.2) : .white)
+        .edgesIgnoringSafeArea(.all)
+        .onTapGesture() {
+            showLoader.toggle()
+        }
+        
     }
 }
 
